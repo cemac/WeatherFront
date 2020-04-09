@@ -1,0 +1,139 @@
+<!-- Source example from https://bl.ocks.org/armollica/90ff1d55f7a8fdbf42500558e1c6d1f5 -->
+<!-- Adapted by Daniel Ellis  -->
+
+<html>
+
+
+<head>
+
+  <link href='https://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
+
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<style>
+  @font-face {
+    font-family: WeatherFront;
+    src: url('WeatherFront.woff') format('woff');
+  }
+
+
+  div,
+  text {
+    font-family: 'Arvo', serif;
+    font-size: .82em;
+  }
+
+  textPath.warm,
+  textPath.cold,
+  textPath.convoluted {
+    font-family: 'WeatherFront', serif !important;
+    font-size: .51em !important;
+  }
+
+  path {
+    fill: none;
+    stroke: tomato;
+    stroke-dasharray: 5, 5;
+  }
+
+  .radio-input {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .warm {
+    fill: tomato;
+  }
+
+  .cold {
+    fill: steelblue;
+  }
+
+  .convoluted {
+    fill: magenta;
+  }
+</style>
+
+<body>
+
+  <div>
+    Click and drag to change the text's path. Direction of drawing determines the fronts side.
+    <br><br>
+    <form id="front" style='text-align:center;'>
+      <input class="radioclass" id="" value="warm" name="front" type="radio" checked=true>Warm</input>
+      <input class="radioclass" id="" value="cold" name="front" type="radio">Cold</input>
+      <input class="radioclass" id="" value="convoluted" name="front" type="radio">Convoluted</input>
+    </form>
+  </div>
+  <script>
+    var frontClass = {
+      'warm': 'WW',
+      'cold': 'CC',
+      'convoluted': 'WC'
+    }
+    var checked = document.querySelector('input.radioclass:checked').value
+
+
+    var width = window.innerWidth,
+        height = window.innerHeight;
+
+    var line = d3.line()
+      .curve(d3.curveBasis);
+
+    var svg = d3.select("body").append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .call(d3.drag()
+        .container(function(d) {
+          return this;
+        })
+        .subject(function(d) {
+          var p = [d3.event.x, d3.event.y];
+          return [p, p];
+        })
+        .on("start", dragStarted));
+
+    var textPath = svg.append("defs").append("path")
+      .attr("id", "textPath")
+    //.attr("d", '');
+    var path = svg.append("path")
+    //.attr("d", '');
+
+    var text = svg.append("text").append("textPath")
+      .attr("xlink:href", "#textPath")
+    //.classed('warm',true)
+    //.text(letters);
+
+
+
+    function dragStarted() {
+      var d = d3.event.subject,
+        x0 = d3.event.x,
+        y0 = d3.event.y;
+
+      path.datum(d);
+      textPath.datum(d);
+
+      d3.event.on("drag", function() {
+        checked = document.querySelector('input.radioclass:checked').value
+        text.attr('class', checked)
+        text.text(frontClass[checked].repeat(100))
+
+
+        var x1 = d3.event.x,
+          y1 = d3.event.y,
+          dx = x1 - x0,
+          dy = y1 - y0;
+
+        if (dx * dx + dy * dy > 100) d.push([x0 = x1, y0 = y1]);
+        else d[d.length - 1] = [x1, y1];
+        textPath.attr("d", line);
+        path.attr("d", line);
+
+
+      });
+    }
+  </script>
+</body>
+
+</html>

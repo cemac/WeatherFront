@@ -1,0 +1,119 @@
+SplineFontDB: 3.2
+FontName: WeatherFront
+FullName: CEMAC WeatherFront
+FamilyName: WeatherFront
+Weight: Regular
+Copyright: Copyright (c) 2020, Daniel Ellis
+UComments: "2020-4-9: Created with FontForge (http://fontforge.org)"
+Version: 001.000
+ItalicAngle: 0
+UnderlinePosition: -100
+UnderlineWidth: 50
+Ascent: 800
+Descent: 200
+InvalidEm: 0
+LayerCount: 2
+Layer: 0 0 "Back" 1
+Layer: 1 0 "Fore" 0
+XUID: [1021 444 -1964217456 10689577]
+StyleMap: 0x0000
+FSType: 0
+OS2Version: 0
+OS2_WeightWidthSlopeOnly: 0
+OS2_UseTypoMetrics: 1
+CreationTime: 1586472226
+ModificationTime: 1586472804
+OS2TypoAscent: 0
+OS2TypoAOffset: 1
+OS2TypoDescent: 0
+OS2TypoDOffset: 1
+OS2TypoLinegap: 90
+OS2WinAscent: 0
+OS2WinAOffset: 1
+OS2WinDescent: 0
+OS2WinDOffset: 1
+HheadAscent: 0
+HheadAOffset: 1
+HheadDescent: 0
+HheadDOffset: 1
+MarkAttachClasses: 1
+DEI: 91125
+Encoding: ISO8859-1
+UnicodeInterp: none
+NameList: AGL For New Fonts
+DisplaySize: -48
+AntiAlias: 1
+FitToEm: 0
+WinInfo: 64 16 4
+BeginPrivate: 0
+EndPrivate
+BeginChars: 256 4
+
+StartChar: c
+Encoding: 99 99 0
+Width: 1000
+LayerCount: 2
+Fore
+SplineSet
+0 800 m 29
+ 1000 798 l 29
+ 493 304 l 29
+ 0 800 l 29
+EndSplineSet
+Validated: 1
+EndChar
+
+StartChar: C
+Encoding: 67 67 1
+Width: 1000
+Flags: W
+LayerCount: 2
+Fore
+SplineSet
+0 -202 m 25
+ 493 294 l 25
+ 1000 -200 l 25
+ 0 -202 l 25
+EndSplineSet
+Validated: 1
+EndChar
+
+StartChar: W
+Encoding: 87 87 2
+Width: 1000
+LayerCount: 2
+Fore
+SplineSet
+0 -200 m 1
+ 0 -200 -0.00325761146197 -199.679668206 -0.00325761146197 -199.053831495 c 0
+ -0.00325761146197 -172.820842681 5.72038834951 390.186407767 497 398 c 0
+ 500.331052296 398.052978963 503.639562717 398.079293606 506.925686932 398.079293606 c 0
+ 999.855272679 398.079293606 989.072846074 -194.026489481 1000 -198 c 0
+ 1000.09630349 -198.035019452 1000.14416569 -198.069502371 1000.14416569 -198.103456138 c 0
+ 1000.14416569 -199.749124067 887.709280001 -200.151741155 728.775356793 -200.151741155 c 0
+ 576.498004804 -200.151741155 381.535053047 -199.782143142 201.879789713 -199.782143142 c 0
+ 131.018868848 -199.782143142 62.5394080705 -199.839642543 0 -200 c 1
+EndSplineSet
+Validated: 524289
+EndChar
+
+StartChar: w
+Encoding: 119 119 3
+Width: 1000
+VStem: -0.149794 1000.34<644.243 798>
+LayerCount: 2
+Fore
+SplineSet
+391 644 m 1053
+0 802 m 9
+ 1000 798 l 17
+ 1000 798 1000.18969515 794.281975015 1000.18969515 787.487055002 c 0
+ 1000.18969515 716.276293266 979.355400697 307.128919861 501 298 c 0
+ 495.951830443 297.903660886 490.954429186 297.855955391 486.007286566 297.855955391 c 0
+ 18.8824578403 297.855955391 -0.149793782702 723.185404704 -0.149793782702 792.50286851 c 0
+ -0.149793782702 798.652434595 1.75692793647e-13 802 0 802 c 9
+EndSplineSet
+Validated: 524289
+EndChar
+EndChars
+EndSplineFont
