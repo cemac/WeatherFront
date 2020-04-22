@@ -21,7 +21,10 @@
   text {
     font-family: 'Arvo', serif;
     font-size: .82em;
-  }
+    text-anchor:middle;
+    text-align: center;
+    vertical-align: middle;
+}
 
   textPath.warm,
   textPath.cold,
@@ -34,6 +37,7 @@
     fill: none;
     stroke: tomato;
     stroke-dasharray: 5, 5;
+    opacity:0.3;
   }
 
   .radio-input {
@@ -69,11 +73,14 @@ background-size: 100%;
   <div>
     Click and drag to change the text's path. Direction of drawing determines the fronts side.
     <br><br>
-    <form id="front" style='text-align:center;'>
+    <div id="front" style='text-align:center;'>
       <input class="radioclass" id="" value="warm" name="front" type="radio" checked=true>Warm</input>
       <input class="radioclass" id="" value="cold" name="front" type="radio">Cold</input>
       <input class="radioclass" id="" value="convoluted" name="front" type="radio">Convoluted</input>
-    </form>
+      <input class="radioclass" id="" value="poly" name="front" type="radio">Polygon
+            <input type="text" id="ptext" name="fname" style='width:8em' value="PolygonText" onchange="text.text(document.getElementById('ptext').value)"></input>
+            <input type="color" id="pcolor" name="fcolor" style='width:2em' value="#FF6F61" >
+    </div>
   </div>
   <script>
     var frontClass = {
@@ -89,6 +96,11 @@ background-size: 100%;
 
     var line = d3.line()
       .curve(d3.curveBasis);
+    var pgn = d3.line()
+        .curve(d3.curveBasisClosed);
+    var centroid = function(w){
+       return d3.polygonCentroid(w).map(d=>parseInt(d))
+    }
 
     var svg = d3.select("body").append("svg")
       .attr("width", width)
@@ -103,14 +115,18 @@ background-size: 100%;
         })
         .on("start", dragStarted));
 
+
+    //PATHS
     var textPath = svg.append("defs").append("path")
       .attr("id", "textPath")
     //.attr("d", '');
     var path = svg.append("path")
     //.attr("d", '');
 
-    var text = svg.append("text").append("textPath")
-      .attr("xlink:href", "#textPath")
+    //TEXT
+    var text = svg.append("text")
+    var text4path = svg.append("text").append("textPath")
+                        .attr("xlink:href", "#textPath")
     //.classed('warm',true)
     //.text(letters);
 
@@ -126,8 +142,7 @@ background-size: 100%;
 
       d3.event.on("drag", function() {
         checked = document.querySelector('input.radioclass:checked').value
-        text.attr('class', checked)
-        text.text(frontClass[checked].repeat(100))
+
 
 
         var x1 = d3.event.x,
@@ -137,8 +152,38 @@ background-size: 100%;
 
         if (dx * dx + dy * dy > 100) d.push([x0 = x1, y0 = y1]);
         else d[d.length - 1] = [x1, y1];
-        textPath.attr("d", line);
-        path.attr("d", line);
+
+
+
+        if (checked!='poly'){
+          text.style('visibility','hidden')
+          text4path.style('visibility','visible')
+
+          text4path.attr('class',checked)
+          text4path.text(frontClass[checked].repeat(100))
+
+          textPath.attr("d", line);
+          path.attr("d", line);
+          path.style('fill','none')
+        }
+        else
+        {
+        text4path.style('visibility','hidden')
+        text.style('visibility','visible')
+
+        var center=centroid(path.datum())
+
+        text.text(document.getElementById('ptext').value)
+              .attr('x',center[0])
+              .attr('y',center[1])
+              .attr('transform',`translate(-50%,-50%)`)
+            //.attr('transform',`translate(${center[0]},${center[1]})`)
+
+        textPath.attr("d", '');
+        path.attr("d", pgn);
+        path.style('fill',document.getElementById('pcolor').value)
+
+        }
 
 
       });
